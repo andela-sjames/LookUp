@@ -1,0 +1,22 @@
+{
+  "name": "lookup",
+  "version": "1.0.0",
+  "description": "Lookup is a console application to get the meaning of words directly from your console.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andela-sjames/LookUp.git"
+  },
+  "author": "Samuel, James",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andela-sjames/LookUp/issues"
+  },
+  "homepage": "https://github.com/andela-sjames/LookUp#readme",
+  "dependencies": {
+    "axios": "^0.11.1"
+  }
+}
