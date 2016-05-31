@@ -7,23 +7,36 @@ const rl = readline.createInterface(process.stdin, process.stdout);
 rl.setPrompt('lookup> ');
 rl.prompt();
 
-console.log('Lookup allows you to checkout words' + '\n' +  'and their meaning directly from your console.' + '\n');
+rl.write(`Lookup allows you to checkout words` + `\n` +  `and their meaning directly from your console.` + `\n` + `Type ".exit" to kill process!` + `\n`);
 
-rl.question(`Type 'word' to lookup meaning...` + `\n`, (word) => {
 
-  rl.close();
+function runApp () {
 
-  rl.write(`Getting definition for 'word' ${word}`);
+  rl.question(`Type 'word' to lookup meaning...` + `\n`, (word) => {
 
-  var result = getWordDefinition(word)
-      .then(function (response) {
-        console.log(response.data);
+    var word = word.toLowerCase();
+
+    if (word === "exit") {
+      rl.write(`Application exited.`);
+      process.exit();
+    }
+
+    rl.write(`Getting definition for 'word' ${word}` + `\n`);
+
+    getWordDefinition(word)
+      .then(function(reponse){
+        displayDefintion(reponse.data, function() {
+          runApp();
+        });
+
       })
       .catch(function (response) {
-        console.log(response);
+        wordDefinitionError(response);
+        runApp();
       });
+  });
 
-});
+}
 
 
 function getWordDefinition(word) {
@@ -39,7 +52,22 @@ function getWordDefinition(word) {
 }
 
 function wordDefinitionError(response) {
-    rl.write(`Error getting word defintion pleasee check word spelling.`);
+  rl.write(`Error getting word defintion pleasee check word spelling.`);
 }
+
+function displayDefintion(arrayValue, cb) {
+  var numberFound = arrayValue.length;
+  rl.write(`Found ${numberFound} result(s): ` + `\n`);
+
+  arrayValue.forEach(function(item, idx) {
+    rl.write(`${idx + 1}` + `\n`);
+    rl.write(`Part of Speech:  ${item.partOfSpeech}` + `\n`);
+    rl.write(`Definition: ${item.text}` + `\n` + `\t`);
+  });
+
+  cb();
+}
+
+var run  = runApp();
 
 
