@@ -12,7 +12,7 @@ rl.write(`Lookup allows you to checkout words` + `\n` +  `and their meaning dire
 
 function runApp () {
 
-  rl.question(`Type 'word' to lookup meaning...` + `\n`, (word) => {
+  rl.question(`\n` + `Type 'word' to lookup meaning...` + `\n`, (word) => {
 
     var word = word.toLowerCase();
 
@@ -37,7 +37,6 @@ function runApp () {
   });
 
 }
-
 
 function getWordDefinition(word) {
     return axios.get(`http://api.wordnik.com:80/v4/word.json/${word}/definitions`, {
